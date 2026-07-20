@@ -23,9 +23,16 @@ bot = commands.Bot(command_prefix="/", intents=intents)
 async def on_ready():
     print(f"Bot listo como {bot.user}")
     await bot.tree.sync()
-
+@bot.tree.command(name="ia_help", description="Muestra la ayuda de los comandos de IA")
+@app_commands.guild_only()
+async def ia_help(interaction: discord.Interaction):
+    help_message = (
+        "Información Acerca de la IA\n"
+        "La IA por ahora no tiene memoria de conversaciones anteriores o contexto persistente.\n"
+        "Esto quiere decir que cada vez que le hagas una pregunta, no recordará lo que le preguntaste antes.\n")
+    await interaction.response.send_message(help_message, ephemeral=True)   
 # 4. El Comando de Barra con IA
-@bot.tree.command(name="preguntar", description="Hazle una pregunta a la Inteligencia Artificial")
+@bot.tree.command(name="preguntar", description="Hazle una pregunta a la Inteligencia Artificial (Chat Externo)")
 @app_commands.guild_only()
 async def preguntar(interaction: discord.Interaction, pregunta: str):
     """
